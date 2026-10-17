@@ -39,10 +39,15 @@
 
 ## What This Does
 
-<!-- Your community, and what your classifier sorts posts into. Three or four
-     sentences. -->
-
-
+This project aims to classify public text posts from
+[r/CasualConversation](https://www.reddit.com/r/CasualConversation/), a community
+where people discuss everyday experiences, interests, and opinions. It uses
+200 original posts, with each title and body treated as one example and replies
+excluded. The three categories are `personal_experience` for sharing personal
+experiences or feelings, `discussion_request` for seeking answers or
+participation, and `viewpoint` for presenting or explaining a broader idea.
+The goal is to identify the main purpose of a post, including difficult cases
+such as a personal story that ends with a question.
 
 ---
 
