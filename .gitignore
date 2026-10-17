@@ -25,6 +25,13 @@ takemeter_out/
 .DS_Store
 Thumbs.db
 
+# Local collection and labeling materials. Commit the final labels.csv instead.
+/generate_casual_posts.py
+/LABEL_REVIEW.md
+/LABELING_WORKSHEET.md
+/labels_to_fill.csv
+/data/casualconversation_*
+
 # NOTE: results.json, results_three_seeds.json and baseline_results.json are
 # deliberately NOT ignored. They're evidence the run actually happened, and
 # they're part of what gets graded. Commit them.

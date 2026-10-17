@@ -53,88 +53,156 @@ such as a personal story that ends with a question.
 
 ## Label Taxonomy
 
-<!-- Each label: a one-sentence definition and two real examples from your
-     reading. Then your decision rule for the hardest boundary.
+### `personal_experience`
 
-     The decision rule is worth a point on its own and it's the thing most
-     people leave out. Every taxonomy has a hardest boundary. Name yours. -->
+**Definition:** Mainly shares the writer's experiences, personal circumstances,
+or feelings; a generic closing invitation does not override a self-contained
+personal account.
 
-### `label_one`
+**Example 1:** [Making a burger for the first time](https://www.reddit.com/r/CasualConversation/comments/1x3r7ar/i_just_made_a_burger_for_the_first_time_and_it/)
+> It was super juicy and flavorful and the crust was impeccable.
 
-**Definition:**
+The post describes buying ingredients, cooking, and enjoying the result.
 
-**Example 1:**
->
+**Example 2:** [Hearing a cat purr after getting hearing aids](https://www.reddit.com/r/CasualConversation/comments/fkkdz5/got_hearing_aids_today_and_cried_because_my_cat/)
+> purring isn't just vibrating! It's a sound! I can hear it!
 
-**Example 2:**
->
+The writer shares a new experience and the emotions it caused.
 
-### `label_two`
+### `discussion_request`
 
-**Definition:**
+**Definition:** Mainly asks readers for answers, stories, advice, judgments,
+recommendations, or participation; a specific unresolved request can outweigh
+a long background story.
 
-**Example 1:**
->
+**Example 1:** [Planning something for coworkers on Friday the 13th](https://www.reddit.com/r/CasualConversation/comments/1wsx86x/november_has_a_friday_the_13th_this_year_whats/)
+> I'm looking for something fun (but not too expensive/time intensive) I can bring in.
 
-**Example 2:**
->
+The writer wants suggestions that fit practical constraints, including a
+coworker's allergy.
+
+**Example 2:** [Looking for a new hobby](https://www.reddit.com/r/CasualConversation/comments/1t4as9v/i_have_gotta_find_a_new_hobby_any_suggestions/)
+> I have gotta find a new hobby, any suggestions?
+
+The writer describes existing hobbies and asks for affordable alternatives.
+
+### `viewpoint`
+
+**Definition:** Mainly presents or explains a broader opinion, observation,
+recommendation, or idea; a brief moral at the end of a personal story is not
+enough.
+
+**Example 1:** [Explaining when to use “and me” or “and I”](https://www.reddit.com/r/CasualConversation/comments/1wjox0q/a_simple_trick_for_knowing_when_to_say_and_me/)
+> Just remove the other person's name from the sentence in your mind.
+
+The writer develops an explanation with worked examples.
+
+**Example 2:** [Using a wrong-train metaphor for life decisions](https://www.reddit.com/r/CasualConversation/comments/1wsv6wh/even_if_you_paid_a_lot_for_the_ticket_once_you/)
+> But staying longer doesn't make the destination any better.
+
+The writer explains a broader idea about staying in situations because of
+past investment.
 
 ### The hardest boundary
 
-**Which two labels:**
+**Which two labels:** `personal_experience` and `discussion_request`.
 
-**The decision rule I used every time:**
-<!-- e.g. "If the post names a specific checkable fact, it's `analysis`, even
-     if the tone is heated." -->
+**The decision rule for this labeling pass:** A specific unresolved request for
+advice, judgment, recommendations, or participation is `discussion_request`,
+even when the background story is long. A completed personal account stays
+`personal_experience` when “anyone else?” is mainly a closing invitation.
+A question mark alone does not determine the label.
 
-
+These definitions and the decisions below were proposed and applied by
+artificial intelligence. Human review of the labels is still pending.
 
 ---
 
 ## The Dataset
 
-<!-- Where you collected from, how you labelled, your counts, and three hard
-     cases. -->
+**Where the posts came from:** The public
+[r/CasualConversation community](https://www.reddit.com/r/CasualConversation/).
+The dataset contains 200 original submissions, with each complete collected
+title and body combined into one example. Replies are excluded. Public pages
+were found through recent and ranked feeds and related-post links within the
+same community. This is a convenience sample with popularity, recommendation,
+and accessibility bias, not a random sample of the whole community. Some pages
+were cached, and the text was collected in rendered form rather than raw
+Markdown. Three entries containing removal or moderation notices were replaced
+with other public posts from the same community.
 
-**Where the posts came from:**
+**How the posts were labeled:** Artificial intelligence read the collected
+posts, tried the example labels, proposed categories better suited to this
+community, and assigned preliminary labels with a reason for each row. All
+200 posts previously received preliminary labels. In the working `labels.csv`,
+the first 20 labels are now blank for manual decisions and carry a note recording
+that prior assistance. The remaining 180 retain their preliminary labels and
+reasons, marked `AI-prelabeled; human review pending.`.
+The required 20-post cold-labeling pass was not completed before this assistance,
+and I have not claimed otherwise. Human review and correction of every label
+remain unfinished. The hard cases below record the assistant's preliminary
+decisions, not completed independent student decisions.
 
-**How I labelled them:** <!-- Cold first? Pre-labelled with AI and corrected?
-Say so plainly — the disclosure is required, not penalised. -->
+**Dataset file:** `labels.csv` contains one unsplit collection with exactly the
+columns `text`, `label`, and `note`. It preserves the whole text from the local
+collection. Posts 1–20 need manual labels; posts 21–200 contain preliminary
+labels to review. The notebook creates the training,
+validation, and test groups; no separate data groups have been saved here.
 
-**Counts per label:**
+**Current working-file counts, before completing manual labeling:**
 
-| Label | Count | Share |
+| Label | Count | Share of all 200 posts |
 |---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
-| **Total** |  | 100% |
+| `personal_experience` | 92 | 46.0% |
+| `discussion_request` | 66 | 33.0% |
+| `viewpoint` | 22 | 11.0% |
+| Awaiting manual label | 20 | 10.0% |
+| **Total** | **200** | **100%** |
 
-**Three hard cases**
+Before clearing the first 20 suggestions, the complete preliminary counts were
+96 personal experiences, 81 discussion requests, and 23 viewpoints. These are
+not final human-reviewed counts.
 
-<!-- Any post that made you pause: what it was, which two labels it could have
-     been, and what you chose. These are worth more than the easy 190. -->
+No assigned category exceeds 70%, but 20 labels remain blank. All 200 source
+post identifiers and normalized texts are unique. The small viewpoint category
+will have few test examples. Complete the blank labels, review the rest, and
+check the counts again before training.
 
-**1.**
-> *The post:*
->
-> *Could have been:*
->
-> *I chose, because:*
+**Three hard cases — preliminary decisions requiring human review**
 
-**2.**
-> *The post:*
+**1. A burger story ending with a question**
+> *The post:* [I just made a burger for the first time and it was the best I ever had](https://www.reddit.com/r/CasualConversation/comments/1x3r7ar/i_just_made_a_burger_for_the_first_time_and_it/).
 >
-> *Could have been:*
+> *Could have been:* `personal_experience` or `discussion_request`.
 >
-> *I chose, because:*
+> *Current decision:* `personal_experience`, because the writer develops a
+> complete account of buying ingredients, cooking, and enjoying the result.
+> The closing question invites conversation after the main story.
 
-**3.**
-> *The post:*
+**2. A long story asking whether refusing help was wrong**
+> *The post:* [Did I do the wrong thing?](https://www.reddit.com/r/CasualConversation/comments/1x04s65/did_i_do_the_wrong_thing/).
 >
-> *Could have been:*
+> *Could have been:* `personal_experience` or `discussion_request`.
 >
-> *I chose, because:*
+> *Current decision:* `discussion_request`, because the writer wants readers
+> to judge an unresolved decision. The detailed account of refusing a jump-start
+> explains the situation readers are being asked to assess.
+
+**3. Returning a piece of coral after learning about its role**
+> *The post:* [Learned a lesson about beachcombing today—taking my ocean find back to where it belongs](https://www.reddit.com/r/CasualConversation/comments/1wt8nya/learned_a_lesson_about_beachcombing_todaytaking/).
+>
+> *Could have been:* `personal_experience` or `viewpoint`.
+>
+> *Current decision:* `personal_experience`, because the main structure follows
+> finding coral, wanting to keep it, learning more, and deciding to return it.
+> The ecological explanation supports a personal change of mind rather than
+> being developed as a separate general argument.
+
+**Remaining work before this milestone is complete:** Resolve the missing
+cold-first labeling step honestly, personally read and correct all preliminary
+labels, update each note to describe the work actually performed, and revise
+the counts and hard-case decisions if needed. No row is marked `cold` or
+human-checked at this point.
 
 ---
 
@@ -158,31 +226,37 @@ of next unit's variance. -->
 
 ## How I Used AI
 
-<!-- Two specific moments — what you asked, what came back, what you changed.
-
-     ⚠️ Plus disclosure of any pre-labelling. If you had a model pre-label a
-     batch and then read and corrected every one, say that. It's an allowed
-     workflow and disclosing it costs you nothing. Not disclosing it is the
-     problem. -->
-
 **Moment 1**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* Help finding a public general-interest community and
+  collecting 200 unique original text posts.
+- *What came back:* A CasualConversation collection, initially incomplete,
+  followed by a combined 200-post file. Later reading identified three entries
+  containing unavailable-content notices.
+- *What I changed:* I requested a single combined collection of 200 posts,
+  removal of obsolete project additions, and replacement of the three unusable
+  entries. The assistant made those changes and checked the combined data for
+  duplicates.
 
 **Moment 2**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* Read all 200 entries, first try the example labels, and
+  suggest labels that fit the actual text better.
+- *What came back:* A review showing that many questions and retrospective
+  stories did not fit the example categories, plus the proposed labels
+  `personal_experience`, `discussion_request`, and `viewpoint`.
+- *What I changed:* I asked the assistant to apply those three labels to the
+  dataset. This is a requested change in categories, not a claim that I have
+  personally verified every assignment.
 
-**Pre-labelling disclosure:**
+**Pre-labeling disclosure:** All 200 labels and their explanations were initially
+assigned by artificial intelligence. The assistant also drafted the category
+definitions, criteria, dataset description, and hard-case explanations. The
+20-post cold-first pass and human correction of all 200 labels have not been
+completed. No notes claim those steps happened. I need to finish the human
+work and update this disclosure before describing the dataset as fully reviewed.
 
-<!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
-
-     Don't fill these in during unit 5.
-     ═══════════════════════════════════════════════════════════════════ -->
+<!-- UNIT 6: Do not fill in results below until the relevant experiments are run. -->
 
 ---
 
