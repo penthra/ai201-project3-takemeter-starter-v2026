@@ -186,8 +186,9 @@ Additional review flags in the CSV:
 Review the annotations, finalize your definitions and difficult-boundary rules,
 and correct the AI suggestions. The three unavailable entries have been replaced.
 Disclose AI pre-labeling in your README; do not describe
-these annotations as cold or unassisted labels. The source CSV's `label` and
-`note` columns, the notebook, and the staff taxonomy have not been changed.
+these annotations as cold or unassisted labels. The source CSV's `label` column now contains the proposed three-category labels.
+Its `note` column contains the AI-prelabeling disclosure and a row-specific reason.
+Human review is still pending. The notebook and staff taxonomy have not been changed.
 
 Source CSV SHA-256:
-`f8120537094a412b2d648cc1f9dd350def2220854405b783dd6ac2d38131b0e5`
+`610a40989eacd211a63953ecd140a23bfb12ec32be4feefd61248b6820c317a1`

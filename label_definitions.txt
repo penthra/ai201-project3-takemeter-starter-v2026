@@ -1,10 +1,7 @@
-# Your label definitions, one per line, as `label: definition`.
-#
-# Copy these from your README so the baseline is judged on exactly the
-# definitions you wrote. baseline.py reads this file.
-#
-# Delete the examples below and put yours in.
+# CasualConversation taxonomy; baseline.py reads these definitions.
+# AI-proposed labels and annotations; human review is pending.
+# Detailed boundary rules and examples are in LABEL_REVIEW.md.
 
-analysis: makes an argument backed by a specific, checkable fact
-hot_take: a confident claim with no support offered
-reaction: an immediate response to something that just happened
+personal_experience: mainly shares the writer's experiences, personal circumstances, or feelings; a generic closing invitation does not override a self-contained personal account
+discussion_request: mainly asks readers for answers, stories, advice, judgments, recommendations, or participation; a specific unresolved request can outweigh a long background story
+viewpoint: mainly presents or explains a broader opinion, observation, recommendation, or idea; a brief moral at the end of a personal story is not enough
