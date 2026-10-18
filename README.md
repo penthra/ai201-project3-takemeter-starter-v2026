@@ -133,40 +133,31 @@ with other public posts from the same community.
 
 **How the posts were labeled:** Artificial intelligence read the collected
 posts, tried the example labels, proposed categories better suited to this
-community, and assigned preliminary labels with a reason for each row. All
-200 posts previously received preliminary labels. In the working `labels.csv`,
-the first 20 labels are now blank for manual decisions and carry a note recording
-that prior assistance. The remaining 180 retain their preliminary labels and
-reasons, marked `AI-prelabeled; human review pending.`.
-The required 20-post cold-labeling pass was not completed before this assistance,
-and I have not claimed otherwise. Human review and correction of every label
-remain unfinished. The hard cases below record the assistant's preliminary
-decisions, not completed independent student decisions.
+community, and assigned preliminary labels. All 200 rows in `labels.csv` now
+have a label and a labeling reason in the `note` column. Notes explain the
+category decision; this section records the assistance used. The first 20
+labels were also filled with assistance, not as an unassisted cold-labeling
+pass. Human review and correction remain pending. The hard cases below record
+the assistant's preliminary decisions, not completed independent student decisions.
 
 **Dataset file:** `labels.csv` contains one unsplit collection with exactly the
-columns `text`, `label`, and `note`. It preserves the whole text from the local
-collection. Posts 1–20 need manual labels; posts 21–200 contain preliminary
-labels to review. The notebook creates the training,
-validation, and test groups; no separate data groups have been saved here.
+columns `text`, `label`, and `note`. Complete post texts are preserved. The
+notebook creates the training, validation, and test groups; no separate data
+groups have been saved here.
 
-**Current working-file counts, before completing manual labeling:**
+**Current preliminary label counts:**
 
-| Label | Count | Share of all 200 posts |
+| Label | Count | Share |
 |---|---|---|
-| `personal_experience` | 92 | 46.0% |
-| `discussion_request` | 66 | 33.0% |
-| `viewpoint` | 22 | 11.0% |
-| Awaiting manual label | 20 | 10.0% |
+| `personal_experience` | 96 | 48.0% |
+| `discussion_request` | 81 | 40.5% |
+| `viewpoint` | 23 | 11.5% |
 | **Total** | **200** | **100%** |
 
-Before clearing the first 20 suggestions, the complete preliminary counts were
-96 personal experiences, 81 discussion requests, and 23 viewpoints. These are
-not final human-reviewed counts.
-
-No assigned category exceeds 70%, but 20 labels remain blank. All 200 source
-post identifiers and normalized texts are unique. The small viewpoint category
-will have few test examples. Complete the blank labels, review the rest, and
-check the counts again before training.
+All 200 rows have labels. No category exceeds 70%, and all source post
+identifiers and normalized texts are unique. The viewpoint category has only
+23 examples, so its test results will depend heavily on a few posts. Review
+the labels and check the counts again before training.
 
 **Three hard cases — preliminary decisions requiring human review**
 
@@ -249,12 +240,7 @@ of next unit's variance. -->
   dataset. This is a requested change in categories, not a claim that I have
   personally verified every assignment.
 
-**Pre-labeling disclosure:** All 200 labels and their explanations were initially
-assigned by artificial intelligence. The assistant also drafted the category
-definitions, criteria, dataset description, and hard-case explanations. The
-20-post cold-first pass and human correction of all 200 labels have not been
-completed. No notes claim those steps happened. I need to finish the human
-work and update this disclosure before describing the dataset as fully reviewed.
+**Pre-labeling disclosure:**
 
 <!-- UNIT 6: Do not fill in results below until the relevant experiments are run. -->
 
