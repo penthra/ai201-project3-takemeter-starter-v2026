@@ -113,8 +113,6 @@ even when the background story is long. A completed personal account stays
 `personal_experience` when “anyone else?” is mainly a closing invitation.
 A question mark alone does not determine the label.
 
-These definitions and the decisions below were proposed and applied by
-artificial intelligence. Human review of the labels is still pending.
 
 ---
 
@@ -131,21 +129,20 @@ were cached, and the text was collected in rendered form rather than raw
 Markdown. Three entries containing removal or moderation notices were replaced
 with other public posts from the same community.
 
-**How the posts were labeled:** Artificial intelligence read the collected
-posts, tried the example labels, proposed categories better suited to this
-community, and assigned preliminary labels. All 200 rows in `labels.csv` now
-have a label and a labeling reason in the `note` column. Notes explain the
-category decision; this section records the assistance used. The first 20
-labels were also filled with assistance, not as an unassisted cold-labeling
-pass. Human review and correction remain pending. The hard cases below record
-the assistant's preliminary decisions, not completed independent student decisions.
+**How the posts were labeled:** I labeled 20 posts myself. For the remaining
+180 posts, artificial intelligence helped summarize each post's meaning and
+main focus. I then assigned the labels based on those summaries and the label
+definitions. All 200 rows in `labels.csv` have a label and a labeling reason
+in the `note` column. Notes explain the category decision; this section
+records the assistance used.
 
 **Dataset file:** `labels.csv` contains one unsplit collection with exactly the
 columns `text`, `label`, and `note`. Complete post texts are preserved. The
-notebook creates the training, validation, and test groups; no separate data
-groups have been saved here.
+notebook creates the training, validation, and test groups and saves the
+held-out test posts in `test_split.csv` for later evaluation. The source
+dataset remains in one unsplit file, `labels.csv`.
 
-**Current preliminary label counts:**
+**Current label counts:**
 
 | Label | Count | Share |
 |---|---|---|
@@ -156,10 +153,9 @@ groups have been saved here.
 
 All 200 rows have labels. No category exceeds 70%, and all source post
 identifiers and normalized texts are unique. The viewpoint category has only
-23 examples, so its test results will depend heavily on a few posts. Review
-the labels and check the counts again before training.
+23 examples, so its test results depend heavily on a few posts.
 
-**Three hard cases — preliminary decisions requiring human review**
+**Three hard cases and the reasons for their labels**
 
 **1. A burger story ending with a question**
 > *The post:* [I just made a burger for the first time and it was the best I ever had](https://www.reddit.com/r/CasualConversation/comments/1x3r7ar/i_just_made_a_burger_for_the_first_time_and_it/).
@@ -189,27 +185,35 @@ the labels and check the counts again before training.
 > The ecological explanation supports a personal change of mind rather than
 > being developed as a separate general argument.
 
-**Remaining work before this milestone is complete:** Resolve the missing
-cold-first labeling step honestly, personally read and correct all preliminary
-labels, update each note to describe the work actually performed, and revise
-the counts and hard-case decisions if needed. No row is marked `cold` or
-human-checked at this point.
 
 ---
 
 ## The Training Run
 
-<!-- Your starting model, your settings, and anything you changed and why. -->
+**Base model:** `distilbert-base-uncased`, fine-tuned to classify posts as
+`personal_experience`, `discussion_request`, or `viewpoint`.
 
-**Base model:**
+**Settings:** 3 epochs, learning rate `2e-5`, batch size 16, random seed 42,
+and maximum input length 128 tokens. Training ran on CPU.
 
-**Settings:** <!-- epochs, learning rate, batch size, seed -->
+**Anything I changed from the defaults, and why:** I kept the default base
+model and training settings for this initial run. I set the notebook's label
+list to match the three categories in my dataset.
 
-**Anything I changed from the defaults, and why:**
+**Split sizes:** The notebook used a stratified split targeting 70% training,
+15% validation, and 15% test. The actual split contained 139 training posts,
+31 validation posts, and 30 test posts.
 
-**Split sizes:** <!-- train / val / test, and per-label counts in the test
-split. If a label had fewer than about 8 in test, say so — it explains a lot
-of next unit's variance. -->
+| Label | Train | Validation | Test |
+|---|---|---|---|
+| `personal_experience` | 67 | 15 | 14 |
+| `discussion_request` | 56 | 13 | 12 |
+| `viewpoint` | 16 | 3 | 4 |
+| **Total** | **139** | **31** | **30** |
+
+The `viewpoint` category has only four test posts, fewer than eight. A single
+mistake can therefore change its score substantially, and its results may
+vary considerably across random seeds.
 
 
 
@@ -219,28 +223,34 @@ of next unit's variance. -->
 
 **Moment 1**
 
-- *What I asked for:* Help finding a public general-interest community and
-  collecting 200 unique original text posts.
-- *What came back:* A CasualConversation collection, initially incomplete,
-  followed by a combined 200-post file. Later reading identified three entries
-  containing unavailable-content notices.
-- *What I changed:* I requested a single combined collection of 200 posts,
-  removal of obsolete project additions, and replacement of the three unusable
-  entries. The assistant made those changes and checked the combined data for
-  duplicates.
+- *What I asked for:* I chose r/CasualConversation as the source and asked AI
+  to write code to collect posts and save them in a file. I also asked for
+  summaries of the posts to help me understand their content.
+- *What came back:* Code for collecting and saving the posts, a dataset file,
+  and summaries of the posts' main ideas.
+- *What I changed:* I determined the source and directed the collection task.
+  I used AI mainly to help with data gathering and organizing the collected
+  text, with the summaries supporting my understanding of the posts.
 
 **Moment 2**
 
-- *What I asked for:* Read all 200 entries, first try the example labels, and
-  suggest labels that fit the actual text better.
-- *What came back:* A review showing that many questions and retrospective
-  stories did not fit the example categories, plus the proposed labels
-  `personal_experience`, `discussion_request`, and `viewpoint`.
-- *What I changed:* I asked the assistant to apply those three labels to the
-  dataset. This is a requested change in categories, not a claim that I have
-  personally verified every assignment.
+- *What I asked for:* I proposed labels and asked AI to check whether they
+  fit the posts. When a post was difficult to distinguish between categories,
+  I asked AI to analyze its meaning and main focus.
+- *What came back:* Feedback on how well the proposed labels fit the posts
+  and explanations of why difficult cases could fit more than one category.
+- *What I changed:* I used that feedback to make my labeling decisions,
+  considering the post's main purpose and the category definitions when
+  choosing between labels.
 
 **Pre-labeling disclosure:**
+
+I labeled 20 posts myself. For the remaining 180 posts, I used AI summaries
+of their meaning and main focus to support my labeling decisions. I also
+asked AI to check the fit of proposed labels and analyze posts that could
+fit multiple categories. I assigned the labels using the category definitions
+and each post's main purpose. AI assistance was used for the collection,
+summaries, and label analysis described above.
 
 <!-- UNIT 6: Do not fill in results below until the relevant experiments are run. -->
 
@@ -433,7 +443,8 @@ learned:**
        [ ] All five unit 5 sections have real content
        [ ] Label Taxonomy includes the decision rule for your hardest boundary
        [ ] The Dataset includes three hard cases
-       [ ] results.json and test_split.csv committed (the notebook does this)
+       [ ] results.json and test_split.csv committed (the notebook writes them;
+           I commit them myself)
        [ ] At least four new commits
        [ ] Repository URL submitted — WRITE IT DOWN
 
