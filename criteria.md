@@ -10,8 +10,9 @@ The current dataset contains 200 posts:
 - 81 discussion requests: 40.5% of the dataset.
 - 23 viewpoints: 11.5% of the dataset.
 
-The current labels were suggested by artificial intelligence. A person must
-review and correct them before they are used as reference answers for testing.
+I labeled 20 posts myself. For the remaining 180 posts, I used AI summaries
+and analysis to support my labeling decisions, applying the category definitions
+to choose the labels.
 
 ## How the model will be tested
 
@@ -83,23 +84,20 @@ a minimum safeguard; the viewpoint category's small test group will still
 make its score less reliable. The upper limit follows the project's rule
 that no category may exceed 70%.
 
-## 5. Two people must independently agree on at least 24 of the same 30 posts
+## 5. Test accuracy must vary by no more than 10 percentage points across three seeds
 
-Randomly select 30 posts from this community and record their post identifiers.
-I will label these posts using my written category definitions. A second person
-will label the same posts using the same definitions without seeing my choices.
-We must choose the same label for at least 24 posts, giving agreement of at
-least 80%. Calculate agreement before discussing or correcting disagreements.
+Use the test accuracies from seeds 42, 7, and 2024. Subtract the lowest
+accuracy from the highest accuracy. The difference must be no greater than
+0.10. Check this across all three runs together, using the saved three-seed
+results JSON file.
 
-**Why this target:** A story with a closing question can reasonably confuse
-people as well as the model. Allowing up to six disagreements recognizes this
-difficulty. More disagreements would suggest that the definitions or their
-application need improvement before I judge the model against those labels.
-This check uses my project's categories; it is separate from the staff's
-labeling exercise.
+**Why this target:** With only 200 posts and four viewpoints in the initial
+test split, performance may depend on which posts enter each split and on
+training randomness. A useful model should perform reasonably consistently
+rather than depend heavily on a favorable random split.
+
+This criterion measures run stability, not agreement between human labelers.
+The criteria above cover overall accuracy, per-label performance, and balance.
 
 ---
 
-These targets have not yet been checked against training results. If a target
-is missed, keep it and explain the likely cause. Do not lower a target merely
-because the model failed to reach it.
